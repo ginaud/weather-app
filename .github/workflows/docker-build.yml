@@ -24,3 +24,17 @@ jobs:
 
     - name: Push image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/weather-app:v1
+
+
+
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+
+    - name: Configure kubeconfig
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl rollout restart deployment weather-app
