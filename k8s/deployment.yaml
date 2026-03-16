@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-app
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: weather-app
+
+  template:
+    metadata:
+      labels:
+        app: weather-app
+
+    spec:
+      containers:
+      - name: weather-app
+        image: ginaud/weather-app:v1
+
+        ports:
+        - containerPort: 5000
